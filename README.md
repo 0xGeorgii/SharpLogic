@@ -1,8 +1,8 @@
 # SharpLogic
 
-##Open source F# mathematical logic library.
+## Open source F# mathematical logic library.
 
-###Should covers propositional logic. Intuitionism logic. Automate inference, automate reasoning and automate theorem proofs. All in F# functional style.
+### Should covers propositional logic. Intuitionism logic. Automate inference, automate reasoning and automate theorem proofs. All in F# functional style.
 
 Literature:
 * [Introduction to Metamathematics](https://www.amazon.com/Introduction-Metamathematics-Stephen-Cole-Kleene/dp/0923891579/ref=mp_s_a_1_1?dchild=1&keywords=introduction+to+mathematics+by+stephen+cole+kleene&qid=1609609409&sr=8-1)
