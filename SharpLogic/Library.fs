@@ -19,3 +19,9 @@ module Expressions =
         | Mul(Const(1), x) -> x
         | Mul(x, Const(1)) -> x
         | _ -> expression;
+
+    let rec simplify expr =
+        match expr with
+            Add(e1, e2) -> simplify1(Add(simplify e1, simplify e2))
+            | Mul(e1,e2) -> simplify1(Mul(simplify e1, simplify e2))
+            | _ -> simplify1 expr;
