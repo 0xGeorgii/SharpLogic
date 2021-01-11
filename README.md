@@ -9,7 +9,7 @@ Literature:
 * [Symbolic Logic and Mechanical Theorem Proving (Computer Science and Applied Mathematics](https://amzn.to/39287FK)
 * [Handbook of Practical Logic and Automated Reasoning](https://amzn.to/2Mqe0Vz)
 
-Founded 01/01/2021
+### Founded 01/01/2021
 
 This is open source project I committed to contribute every day during 2021.
 
