@@ -12,3 +12,10 @@ Literature:
 Founded 01/01/2021
 
 This is open source project I committed to contribute every day during 2021.
+
+## Build
+
+GitHub Actions |
+:---: |
+[![GitHub Actions](https://github.com/GeorgePlotnikov/SharpLogic/workflows/.NET/badge.svg?branch=main)](https://github.com/GeorgePlotnikov/SharpLogic/workflows/.NET/badge.svg?branch=main) |
+[![Build History](https://buildstats.info/GeorgePlotnikov/SharpLogic)](https://github.com/GeorgePlotnikov/SharpLogic/actions?query=branch%3Amain) |
