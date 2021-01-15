@@ -22,4 +22,4 @@ Main branch build |
 
 ## Feature list
 
-1. Validate a formula #8
+1. Validate a formula
