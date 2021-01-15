@@ -5,39 +5,40 @@ module Formula =
     type Formula =
         Var of string
         | Const of int
-        | Add of Formula * Formula
-        | Mul of Formula * Formula
+        | Disj of Formula * Formula
+        | Conj of Formula * Formula
         | Neg of Formula
-        | Eq of Formula * Formula
+        | Bic of Formula * Formula
         | Impl of Formula * Formula
        
-    let simplify1 formula =
+    let private simplify1 formula =
         match formula with
-        Add(Const(m), Const(n)) -> Const(m+n)
-        | Mul(Const(0), x) -> Const(0)
-        | Mul(x, Const(0)) -> Const(0)
-        | Mul(Const(m), Const(n)) -> Const(m*n)
-        | Mul(Const(1), x) -> x
-        | Mul(x, Const(1)) -> x
-        | Add(Const(0), x) -> x
-        | Add(x, Const(0)) -> x
+        Disj(Const(m), Const(n)) -> Const(m + n)
+        | Conj(Const(0), x) -> Const(0)
+        | Conj(x, Const(0)) -> Const(0)
+        | Conj(Const(m), Const(n)) -> Const(m * n)
+        | Conj(Const(1), x) -> x
+        | Conj(x, Const(1)) -> x
+        | Disj(Const(0), x) -> x
+        | Disj(x, Const(0)) -> x
         | _ -> formula;
 
-    let rec simplify frm =
+    let rec Simplify frm =
         match frm with
-            Add(e1, e2) -> simplify1(Add(simplify e1, simplify e2))
-            | Mul(e1,e2) -> simplify1(Mul(simplify e1, simplify e2))
+            Disj(e1, e2) -> simplify1(Disj(Simplify e1, Simplify e2))
+            | Conj(e1,e2) -> simplify1(Conj(Simplify e1, Simplify e2))
             | _ -> simplify1 frm;
 
-    let isFormulaValid formula =
+    let IsFormulaValid formula =
         match formula with
         Var(n) -> true
         | Neg(n) -> true
-        | Mul(Const(n), m) -> true
-        | Mul(n, Const(m)) -> true
-        | Mul(n, m) -> true
-        | Add(n, m) -> true
-        | Eq(n, m) -> true
+        | Conj(Const(n), m) -> true
+        | Conj(n, Const(m)) -> true
+        | Conj(n, m) -> true
+        | Disj(Const(n), m) -> true
+        | Disj(n, Const(m)) -> true
+        | Disj(n, m) -> true
+        | Bic(n, m) -> true
         | Impl(n, m) -> true
         | _ -> false
-            
