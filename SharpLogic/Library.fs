@@ -24,3 +24,20 @@ module Formula =
         | Bic(n, m) -> true
         | Impl(n, m) -> true
         | _ -> false
+
+    let rec BuildTruthTableHeaders formula =
+        match formula with
+        | Var(n) -> [Var(n)]
+        | Disj(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
+        | Conj(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
+        | Neg(n) -> [formula] @ BuildTruthTableHeaders(n)
+        | Bic(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
+        | Impl(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
+        | _ -> [ formula ]
+
+    let calcFormula formula =
+        match formula with
+        | Disj(Const(N), Const(M)) -> N || M
+        | Conj(Const(N), Const(M)) -> N && M
+        | Neg(Const(N)) -> not N
+        | _ -> false //TODO: what should be here?

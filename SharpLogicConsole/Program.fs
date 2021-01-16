@@ -9,4 +9,6 @@ let main argv =
     let frm1 = Formula.Disj(Conj(Const true, Const false), Var "y")
     let frm2 = Formula.Const true
     let isFormulaValid = IsFormulaValid frm2
+    let truthTable = BuildTruthTableHeaders frm
+    
     0 // return an integer exit code
