@@ -14,3 +14,6 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+desktop.ini
+*.v2
+.vs/SharpLogic/v16/.suo
