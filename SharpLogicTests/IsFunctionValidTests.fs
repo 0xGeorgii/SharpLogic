@@ -27,13 +27,13 @@ type IsFunctionValidTests () =
 
     [<TestMethod>]
     member _.ConjunctionIsFormula2() =
-        let frm = Formula.Conj(Formula.Const 1, Formula.Var "M")
+        let frm = Formula.Conj(Formula.Const true, Formula.Var "M")
         let isFormula = IsFormulaValid frm
         Assert.IsTrue(isFormula)
 
     [<TestMethod>]
     member _.ConjunctionIsFormula3() =
-        let frm = Formula.Conj(Formula.Var "N", Formula.Const 1)
+        let frm = Formula.Conj(Formula.Var "N", Formula.Const false)
         let isFormula = IsFormulaValid frm
         Assert.IsTrue(isFormula)
 
@@ -45,13 +45,13 @@ type IsFunctionValidTests () =
 
     [<TestMethod>]
     member _.DisjunctionIsFormula2() =
-        let frm = Formula.Disj(Formula.Const 1, Formula.Var "M")
+        let frm = Formula.Disj(Formula.Const true, Formula.Var "M")
         let isFormula = IsFormulaValid frm
         Assert.IsTrue(isFormula)
 
     [<TestMethod>]
     member _.DisjunctionIsFormula3() =
-        let frm = Formula.Disj(Formula.Var "N", Formula.Const 1)
+        let frm = Formula.Disj(Formula.Var "N", Formula.Const true)
         let isFormula = IsFormulaValid frm
         Assert.IsTrue(isFormula)
 
@@ -69,7 +69,6 @@ type IsFunctionValidTests () =
 
     [<TestMethod>]
     member _.NegativeCases() =
-        let frm = Formula.Const 1
+        let frm = Formula.Const true
         let isFormula = IsFormulaValid frm
         Assert.IsFalse(isFormula)
-
