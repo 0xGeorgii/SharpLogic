@@ -28,11 +28,11 @@ module Formula =
     let rec VerboseFormula formula =
         match formula with
         | Var(n) -> n
-        | Disj(n, m) -> $"{VerboseFormula(n)} || {VerboseFormula(m)}"
-        | Conj(n, m) -> $"{VerboseFormula(n)} && {VerboseFormula(m)}"
+        | Disj(n, m) -> $"({VerboseFormula(n)} || {VerboseFormula(m)})"
+        | Conj(n, m) -> $"({VerboseFormula(n)} && {VerboseFormula(m)})"
         | Neg(n) -> $"~{VerboseFormula(n)}"
-        | Bic(n, m) -> $"{VerboseFormula(n)} <=> {VerboseFormula(m)}"
-        | Impl(n, m) -> $"{VerboseFormula(n)} -> {VerboseFormula(m)}"
+        | Bic(n, m) -> $"({VerboseFormula(n)} <=> {VerboseFormula(m)})"
+        | Impl(n, m) -> $"({VerboseFormula(n)} -> {VerboseFormula(m)})"
         | _ -> ""
         
     //TODO: write unit tests
