@@ -23,3 +23,4 @@ Main branch build |
 ## Feature list
 
 1. Validate a formula
+2. Verbose a formula
