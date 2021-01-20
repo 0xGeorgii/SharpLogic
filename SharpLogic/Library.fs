@@ -25,9 +25,11 @@ module Formula =
         | Impl(n, m) -> true
         | _ -> false
         
+    //TODO: write unit tests
     let rec VerboseFormula formula =
         match formula with
         | Var(n) -> n
+        | Const(n) -> n.ToString()
         | Disj(n, m) -> $"({VerboseFormula(n)} || {VerboseFormula(m)})"
         | Conj(n, m) -> $"({VerboseFormula(n)} && {VerboseFormula(m)})"
         | Neg(n) -> $"~{VerboseFormula(n)}"
@@ -36,14 +38,14 @@ module Formula =
         | _ -> ""
         
     //TODO: write unit tests
-    let rec FormulaLength formula =
+    let rec FormulaCaclDepth formula =
         match formula with
         | Var(n) -> 1
-        | Disj(n, m) -> 1 + FormulaLength(n) + FormulaLength(m)
-        | Conj(n, m) -> 1 + FormulaLength(n) + FormulaLength(m)
-        | Neg(n) -> 1 + FormulaLength(n)
-        | Bic(n, m) -> 1 + FormulaLength(n) + FormulaLength(m)
-        | Impl(n, m) -> 1 + FormulaLength(n) + FormulaLength(m)
+        | Disj(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
+        | Conj(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
+        | Neg(n) -> 1 + FormulaCaclDepth(n)
+        | Bic(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
+        | Impl(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
         | _ -> 1
 
     //TODO: write unit tests

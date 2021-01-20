@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="FormulaCaclDepthTests.fs" />
     <Compile Include="IsFunctionValidTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
