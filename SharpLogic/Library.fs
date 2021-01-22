@@ -60,7 +60,7 @@ module Formula =
         | _ -> [ formula ]
 
 
-    let calcFormula formula =
+    let CalcFormula formula =
         match formula with
         | Disj(Const(N), Const(M)) -> N || M
         | Conj(Const(N), Const(M)) -> N && M
