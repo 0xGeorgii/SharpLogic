@@ -11,8 +11,6 @@ Literature:
 
 ### Founded 01/01/2021
 
-This is open source project I committed to contribute every day during 2021.
-
 ## Build
 
 Main branch build |
