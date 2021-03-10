@@ -62,7 +62,14 @@ module Formula =
 
     let CalcFormula formula =
         match formula with
-        | Disj(Const(N), Const(M)) -> N || M
-        | Conj(Const(N), Const(M)) -> N && M
-        | Neg(Const(N)) -> not N
+        | Conj(Const(X), Const(Y)) -> X && Y
+        | Disj(Const(X), Const(Y)) -> X || Y
+        | Neg(Const(X)) -> not X
+        | Bic(Const(X), Const(Y)) -> (X && Y) || (not X && not Y)
+        | Impl(Const(X), Const(Y)) ->
+            match (X, Y) with
+            | (true, true) -> true
+            | (true, false) -> false
+            | (false, true) -> true
+            | (false, false) -> true
         | _ -> false //TODO: what should be here?

@@ -12,7 +12,7 @@ let main argv =
     let isFormulaValid = IsFormulaValid frm
     Console.WriteLine($"Formula is valid: [{isFormulaValid}]")
     printf "%s\r\n" "================" |> ignore 
-    let verboseTable = truthTableHeaders |> List.map VerboseFormula |> List.iter(fun f -> printf "%s\t" f)
+    truthTableHeaders |> List.map VerboseFormula |> List.iter(fun f -> printf "%s\t" f)
     let vars = 
         truthTableHeaders
             |> List.filter
@@ -29,10 +29,27 @@ let main argv =
         truthTableHeaders |> List.iter 
             (function f ->
                         match f with
-                        | Formula.Var(_) -> 
+                        | Formula.Var(_) ->
+                            Console.Write(rowVarValues.Item(j).ToString() + "\t")
                             j <- j + 1
-                            Console.Write(rowVarValues.Item(j - 1).ToString() + "\t")
-                        | Formula.Conj(Var(x), Var(y)) -> Console.Write(CalcFormula(Formula.Conj(Const(true), Const(true))).ToString() + "\t")
+                        | Formula.Neg(Var(x)) -> 
+                            let index = truthTableHeaders |> List.findIndex(fun h -> h = Var(x))
+                            let calc = CalcFormula(Formula.Neg(Formula.Const(rowVarValues.Item(index))))
+                            Console.Write(calc.ToString() + "\t")
+                        | Formula.Conj(Var(x), Var(y)) ->
+                            let indexX = truthTableHeaders |> List.findIndex(fun h -> h = Var(x))
+                            let indexY = truthTableHeaders |> List.findIndex(fun h -> h = Var(y))
+                            let calc = CalcFormula(Conj(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
+                            Console.Write(calc.ToString() + "\t")
+                        | Formula.Disj(Var(x), Var(y)) ->
+                            let indexX = truthTableHeaders |> List.findIndex(fun h -> h = Var(x))
+                            let indexY = truthTableHeaders |> List.findIndex(fun h -> h = Var(y))
+                            let calc = CalcFormula(Disj(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
+                            Console.Write(calc.ToString() + "\t")
+                        | Formula.Bic(Var(x), Var(y)) ->
+                            Console.Write("\t")
+                        | Formula.Impl(Var(x), Var(y)) ->
+                            Console.Write("\t")
                         | _ -> Console.WriteLine("")
             )
     0 // return an integer exit code

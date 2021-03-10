@@ -17,3 +17,5 @@ bld/
 desktop.ini
 *.v2
 .vs/SharpLogic/v16/.suo
+*.v2
+.vs/SharpLogic/v16/.suo
