@@ -1,4 +1,4 @@
-# SharpLogic
+![image](https://user-images.githubusercontent.com/22812032/110662714-d1562400-81d6-11eb-89f4-58182cf73a2d.png)
 
 ## Open source F# mathematical logic library.
 
