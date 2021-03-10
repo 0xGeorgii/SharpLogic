@@ -7,6 +7,7 @@ open SharpLogic.BasicAlgorithms
 [<EntryPoint>]
 let main argv =
     let frm = Formula.Impl(Conj(Var "P", Var "Q"), Bic(Var "R", Neg(Var "S")))
+    Console.WriteLine(VerboseFormula frm)
     let truthTableHeaders = BuildTruthTableHeaders frm |> List.sortBy(fun f -> FormulaCaclDepth f)
     List.iter(fun f -> printf "%A\r\n" f) truthTableHeaders    
     let isFormulaValid = IsFormulaValid frm
@@ -47,9 +48,15 @@ let main argv =
                             let calc = CalcFormula(Disj(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
                             Console.Write(calc.ToString() + "\t")
                         | Formula.Bic(Var(x), Var(y)) ->
-                            Console.Write("\t")
+                            let indexX = truthTableHeaders |> List.findIndex(fun h -> h = Var(x))
+                            let indexY = truthTableHeaders |> List.findIndex(fun h -> h = Var(y))
+                            let calc = CalcFormula(Bic(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
+                            Console.Write(calc.ToString() + "\t")
                         | Formula.Impl(Var(x), Var(y)) ->
-                            Console.Write("\t")
+                            let indexX = truthTableHeaders |> List.findIndex(fun h -> h = Var(x))
+                            let indexY = truthTableHeaders |> List.findIndex(fun h -> h = Var(y))
+                            let calc = CalcFormula(Impl(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
+                            Console.Write(calc.ToString() + "\t")
                         | _ -> Console.WriteLine("")
             )
     0 // return an integer exit code
