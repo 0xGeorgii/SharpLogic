@@ -49,14 +49,14 @@ module Formula =
         | _ -> 1
 
     //TODO: write unit tests
-    let rec BuildTruthTableHeaders formula =
+    let rec BuildFormulaCalcList formula =
         match formula with
         | Var(n) -> [Var(n)]
-        | Disj(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
-        | Conj(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
-        | Neg(n) -> [formula] @ BuildTruthTableHeaders(n)
-        | Bic(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
-        | Impl(n, m) -> [formula] @ BuildTruthTableHeaders(n) @ BuildTruthTableHeaders(m)
+        | Disj(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
+        | Conj(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
+        | Neg(n) -> [formula] @ BuildFormulaCalcList(n)
+        | Bic(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
+        | Impl(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
         | _ -> [ formula ]
 
 
@@ -65,7 +65,7 @@ module Formula =
         | Conj(Const(X), Const(Y)) -> X && Y
         | Disj(Const(X), Const(Y)) -> X || Y
         | Neg(Const(X)) -> not X
-        | Bic(Const(X), Const(Y)) -> (X && Y) || (not X && not Y)
+        | Bic(Const(X), Const(Y)) -> X = Y
         | Impl(Const(X), Const(Y)) ->
             match (X, Y) with
             | (true, true) -> true
