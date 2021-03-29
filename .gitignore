@@ -20,3 +20,6 @@ desktop.ini
 *.v2
 .vs/SharpLogic/v16/.suo
 .vs/SharpLogic/v16/.suo
+
+.fake
+.ionide

@@ -22,16 +22,19 @@ let main argv =
             )
     let data = List.init vars.Length (fun _ -> [ true; false ])
     let res = cartList data
-    Console.WriteLine("");
+    printf ""
     let subFormulasVals = new Dictionary<Formula, bool>()
     let _saveFormulaValueAndPrint = fun formula value ->
         if not(subFormulasVals.ContainsKey(formula)) then subFormulasVals.Add(formula, value) else subFormulasVals.Item(formula) <- value
-        Console.Write(value.ToString() + "\t")
+        printf "%b\t" value
+        let len = ((VerboseFormula formula).Length / 8)
+        for _ = 1 to len do
+           printf "\t"
     for i = 0 to res.Length - 1 do
         let rowVarValues = res.Item i
         let mutable j = 0
-        formulaCalcList |> List.iter 
-            (function f ->
+        formulaCalcList |> List.iter
+            (fun f ->
                         match f with
                         | Formula.Var(_) ->
                             Console.Write(rowVarValues.Item(j).ToString() + "\t")
@@ -75,6 +78,22 @@ let main argv =
                             let indexY = formulaCalcList |> List.findIndex(fun h -> h = Var(y))
                             let calc = CalcFormula(Impl(Const(rowVarValues.Item(indexX)), Const(rowVarValues.Item(indexY))))
                             _saveFormulaValueAndPrint f calc
+                        | Formula.Impl(x, Var(y)) ->
+                            let leftVal = subFormulasVals.GetValueOrDefault(x)
+                            let indexY = formulaCalcList |> List.findIndex(fun h -> h = Var(y))
+                            let calc = CalcFormula(Impl(Const(rowVarValues.Item(indexY)), Const(leftVal)))
+                            _saveFormulaValueAndPrint f calc
+                        | Formula.Impl(Var(x), y) ->
+                            let rightVal = subFormulasVals.GetValueOrDefault(y)
+                            let indexX = formulaCalcList |> List.findIndex(fun h -> h = Var(x))
+                            let calc = CalcFormula(Impl(Const(rowVarValues.Item(indexX)), Const(rightVal)))
+                            _saveFormulaValueAndPrint f calc
+                        | Formula.Impl(x, y) ->
+                            let leftVal = subFormulasVals.GetValueOrDefault(x)
+                            let rightVal = subFormulasVals.GetValueOrDefault(y)
+                            let calc = CalcFormula(Impl(Const(rightVal), Const(leftVal)))
+                            _saveFormulaValueAndPrint f calc
                         | _ -> Console.WriteLine("")
             )
+        printf "\r\n"         
     0 // return an integer exit code

@@ -35,7 +35,6 @@ module Formula =
         | Neg(n) -> $"~{VerboseFormula(n)}"
         | Bic(n, m) -> $"({VerboseFormula(n)} <=> {VerboseFormula(m)})"
         | Impl(n, m) -> $"({VerboseFormula(n)} -> {VerboseFormula(m)})"
-        | _ -> ""
         
     //TODO: write unit tests
     let rec FormulaCaclDepth formula =
