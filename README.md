@@ -22,3 +22,5 @@ Main branch build |
 
 1. Validate a formula
 2. Verbose a formula
+3. Calculate a formula in tableaux method
+4. Verbose tableaux method output
