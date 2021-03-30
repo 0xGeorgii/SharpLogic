@@ -21,6 +21,6 @@ Main branch build |
 ## Feature list
 
 1. Validate a formula
-2. Verbose a formula
+2. [Verbose a formula](https://github.com/GeorgePlotnikov/SharpLogic/wiki/VerboseFormula)
 3. Calculate a formula in tableaux method
 4. Verbose tableaux method output
