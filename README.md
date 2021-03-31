@@ -22,6 +22,6 @@ Main branch build |
 
 1. [Validate a formula](https://github.com/GeorgePlotnikov/SharpLogic/wiki/IsFormulaValid)
 2. [Verbose a formula](https://github.com/GeorgePlotnikov/SharpLogic/wiki/VerboseFormula)
-3. Decompose a formula to the calculation list
+3. [Decompose a formula to the calculation list](https://github.com/GeorgePlotnikov/SharpLogic/wiki/BuildFormulaCalcList)
 4. Calculate a formula in tableaux method
 5. Verbose tableaux method output
