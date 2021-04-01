@@ -58,7 +58,6 @@ module Formula =
         | Impl(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
         | _ -> [ formula ]
 
-
     let CalcFormula formula =
         match formula with
         | Conj(Const(X), Const(Y)) -> X && Y

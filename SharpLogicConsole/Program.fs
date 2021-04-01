@@ -6,13 +6,15 @@ open System.Collections.Generic
 [<EntryPoint>]
 let main argv =
     let frm = Formula.Impl(Conj(Var "P", Var "Q"), Bic(Var "R", Neg(Var "S")))
-    Console.WriteLine(VerboseFormula frm)
+    printf "%s\n" (VerboseFormula frm)
     let formulaCalcList = BuildFormulaCalcList frm |> List.sortBy(fun f -> FormulaCaclDepth f)
-    List.iter(fun f -> printf "%A\r\n" f) formulaCalcList    
+    List.iter(fun f -> printf "%A\r\n" f) formulaCalcList
     let isFormulaValid = IsFormulaValid frm
-    Console.WriteLine($"Formula is valid: [{isFormulaValid}]")
+    printf $"Formula is valid: [{isFormulaValid}]\n"
     printf "%s\r\n" "================" |> ignore 
     formulaCalcList |> List.map VerboseFormula |> List.iter(fun f -> printf "%s\t" f)
+
+    //TODO: extract as a separate function BuildAllFormulasInterpritations
     let vars = 
         formulaCalcList
             |> List.filter
@@ -22,7 +24,11 @@ let main argv =
             )
     let data = List.init vars.Length (fun _ -> [ true; false ])
     let res = cartList data
+    //*****************
+
     printf ""
+
+    //TODO: extract as a separate function VerboseTableuxCalculus
     let subFormulasVals = new Dictionary<Formula, bool>()
     let _saveFormulaValueAndPrint = fun formula value ->
         if not(subFormulasVals.ContainsKey(formula)) then subFormulasVals.Add(formula, value) else subFormulasVals.Item(formula) <- value
@@ -93,7 +99,9 @@ let main argv =
                             let rightVal = subFormulasVals.GetValueOrDefault(y)
                             let calc = CalcFormula(Impl(Const(rightVal), Const(leftVal)))
                             _saveFormulaValueAndPrint f calc
-                        | _ -> Console.WriteLine("")
+                        | _ -> printf ""
             )
-        printf "\r\n"         
+        printf "\r\n"
+    //**************
+
     0 // return an integer exit code
