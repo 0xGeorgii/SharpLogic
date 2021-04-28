@@ -39,14 +39,15 @@ module Formula =
         | Impl(n, m) -> $"({VerboseFormula(n)} -> {VerboseFormula(m)})"
         
     //TODO: write unit tests
-    let rec FormulaCaclDepth formula =
+    //TODO: write a wiki page
+    let rec CalcFormulaDepth formula =
         match formula with
         | Var(n) -> 1
-        | Disj(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
-        | Conj(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
-        | Neg(n) -> 1 + FormulaCaclDepth(n)
-        | Bic(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
-        | Impl(n, m) -> 1 + FormulaCaclDepth(n) + FormulaCaclDepth(m)
+        | Disj(n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
+        | Conj(n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
+        | Neg(n) -> 1 + CalcFormulaDepth(n)
+        | Bic(n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
+        | Impl(n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
         | _ -> 1
 
     //TODO: write unit tests
@@ -61,6 +62,7 @@ module Formula =
         | _ -> [ formula ]
 
     //TODO: write unit tests
+    //TODO: write a wiki page
     let CalcFormula formula =
         match formula with
         | Conj(Const(X), Const(Y)) -> X && Y

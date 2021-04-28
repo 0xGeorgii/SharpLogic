@@ -1,8 +1,6 @@
 .vscode/
 .vs/
 
-
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -16,10 +14,6 @@ bld/
 [Ll]og/
 desktop.ini
 *.v2
-.vs/SharpLogic/v16/.suo
-*.v2
-.vs/SharpLogic/v16/.suo
-.vs/SharpLogic/v16/.suo
-
 .fake
 .ionide
+

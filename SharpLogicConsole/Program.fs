@@ -4,7 +4,7 @@
 let main argv =
     let frm = Formula.Impl(Conj(Var "P", Var "Q"), Bic(Var "R", Neg(Var "S")))
     printf "%s\n" (VerboseFormula frm)
-    let formulaCalcList = BuildFormulaCalcList frm |> List.sortBy(fun f -> FormulaCaclDepth f)
+    let formulaCalcList = BuildFormulaCalcList frm |> List.sortBy(fun f -> CalcFormulaDepth f)
     List.iter(fun f -> printf "%A\r\n" f) formulaCalcList
     let isFormulaValid = IsFormulaValid frm
     printf $"Formula is valid: [{isFormulaValid}]\n"
