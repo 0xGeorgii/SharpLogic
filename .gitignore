@@ -1,6 +1,3 @@
-.vscode/
-.vs/
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -14,6 +11,9 @@ bld/
 [Ll]og/
 desktop.ini
 *.v2
+
+#IDE's
 .fake
 .ionide
-
+.vs
+.vscode
