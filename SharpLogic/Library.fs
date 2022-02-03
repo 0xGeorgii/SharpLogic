@@ -3,6 +3,7 @@ open SharpLogic.BasicAlgorithms
 open System.Collections.Generic
 
 module Formula =
+    open Microsoft.FSharp.Core.Printf
 
     type Formula =
         Var of string
@@ -54,11 +55,11 @@ module Formula =
     let rec BuildFormulaCalcList formula =
         match formula with
         | Var(n) -> [Var(n)]
-        | Disj(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
-        | Conj(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
-        | Neg(n) -> [formula] @ BuildFormulaCalcList(n)
-        | Bic(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
-        | Impl(n, m) -> [formula] @ BuildFormulaCalcList(n) @ BuildFormulaCalcList(m)
+        | Disj(n, m) -> formula :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
+        | Conj(n, m) -> formula :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
+        | Neg(n) -> formula :: BuildFormulaCalcList(n)
+        | Bic(n, m) -> formula :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
+        | Impl(n, m) -> formula :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
         | _ -> [ formula ]
 
     //TODO: write unit tests
@@ -75,7 +76,7 @@ module Formula =
             | (true, false) -> false
             | (false, true) -> true
             | (false, false) -> true
-        | _ -> false //TODO: what should be here?
+        | _ -> failwithf "Unsupported formula %A" formula //TODO: what should be here?
 
     //TODO: write unit tests
     let BuildAllFormulasInterpritations formulaCalcList =
@@ -95,10 +96,10 @@ module Formula =
         let subFormulasVals = new Dictionary<Formula, bool>()
         let _saveFormulaValueAndPrint = fun formula value ->
             if not(subFormulasVals.ContainsKey(formula)) then subFormulasVals.Add(formula, value) else subFormulasVals.Item(formula) <- value
-            sb.Append $"{value}\t" |> ignore
+            bprintf sb $"{value}\t"
             let len = ((VerboseFormula formula).Length / 8)
             for _ = 1 to len do
-                sb.Append "\t" |> ignore
+                bprintf sb "\t"
         for i = 0 to formulaInterpritations.Length - 1 do
             let rowVarValues = formulaInterpritations.Item i
             let mutable j = 0
@@ -106,7 +107,7 @@ module Formula =
                 (fun f ->
                             match f with
                             | Formula.Var(_) ->
-                                sb.Append $"{rowVarValues.Item(j)} \t" |> ignore
+                                bprintf sb $"{rowVarValues.Item(j)} \t"
                                 j <- j + 1
                             | Formula.Neg(Var(x)) -> 
                                 let index = formulaCalcList |> List.findIndex(fun h -> h = Var(x))
@@ -164,5 +165,5 @@ module Formula =
                                 _saveFormulaValueAndPrint f calc
                             | _ -> printf "unknown formula %A" f
                 )
-            sb.Append "\r\n" |> ignore
+            bprintf sb "\r\n"
         sb.ToString()
