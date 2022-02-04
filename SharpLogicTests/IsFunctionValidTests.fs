@@ -5,7 +5,7 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 
 //TODO: write additional cases
 [<TestClass>]
-type IsFunctionValidTests () =
+type IsFunctionValidTests() =
 
     [<TestMethod>]
     member _.VariableIsFormula() =
