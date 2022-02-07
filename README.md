@@ -20,7 +20,7 @@ Main branch build |
 
 ## Feature list
 
-1. [Validate a formula](https://github.com/GeorgePlotnikov/SharpLogic/wiki/IsFormulaValid)
+1. [Check a formula for accessibility](https://github.com/GeorgePlotnikov/SharpLogic/wiki/IsFormulaAcceptable)
 2. [Verbose a formula](https://github.com/GeorgePlotnikov/SharpLogic/wiki/VerboseFormula)
 3. [Decompose a formula to the calculation list](https://github.com/GeorgePlotnikov/SharpLogic/wiki/BuildFormulaCalcList)
 4. [Calculate a formula in tableaux method](https://github.com/GeorgePlotnikov/SharpLogic/wiki/Calculate-a-formula-in-tableaux-method)
