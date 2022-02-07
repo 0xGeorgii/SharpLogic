@@ -1,33 +1,11 @@
-﻿namespace SharpLogic
+namespace SharpLogic
 
-open SharpLogic.BasicAlgorithms
-open System.Collections.Generic
+module ConsoleOutput =
 
-module Formula =
+    open System.Collections.Generic
+    open SharpLogic.Formula
+    open SharpLogic.PropositionalLogic
     open Microsoft.FSharp.Core.Printf
-
-    type Formula =
-        | Var of string
-        | Const of bool
-        | Disj of Formula * Formula
-        | Conj of Formula * Formula
-        | Neg of Formula
-        | Bic of Formula * Formula
-        | Impl of Formula * Formula
-
-    let IsFormulaValid formula =
-        match formula with
-        | Var (n) -> true
-        | Neg (n) -> true
-        | Conj (Const (n), m) -> true
-        | Conj (n, Const (m)) -> true
-        | Conj (n, m) -> true
-        | Disj (Const (n), m) -> true
-        | Disj (n, Const (m)) -> true
-        | Disj (n, m) -> true
-        | Bic (n, m) -> true
-        | Impl (n, m) -> true
-        | _ -> false
 
     //TODO: write unit tests
     let rec VerboseFormula formula =
@@ -39,64 +17,6 @@ module Formula =
         | Neg (n) -> $"~{VerboseFormula(n)}"
         | Bic (n, m) -> $"({VerboseFormula(n)} <=> {VerboseFormula(m)})"
         | Impl (n, m) -> $"({VerboseFormula(n)} -> {VerboseFormula(m)})"
-
-    //TODO: write unit tests
-    //TODO: write a wiki page
-    let rec CalcFormulaDepth formula =
-        match formula with
-        | Var (n) -> 1
-        | Disj (n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
-        | Conj (n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
-        | Neg (n) -> 1 + CalcFormulaDepth(n)
-        | Bic (n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
-        | Impl (n, m) -> 1 + CalcFormulaDepth(n) + CalcFormulaDepth(m)
-        | _ -> 1
-
-    //TODO: write unit tests
-    let rec BuildFormulaCalcList formula =
-        match formula with
-        | Var (n) -> [ Var(n) ]
-        | Disj (n, m) ->
-            formula
-            :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
-        | Conj (n, m) ->
-            formula
-            :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
-        | Neg (n) -> formula :: BuildFormulaCalcList(n)
-        | Bic (n, m) ->
-            formula
-            :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
-        | Impl (n, m) ->
-            formula
-            :: (BuildFormulaCalcList(n) @ BuildFormulaCalcList(m))
-        | _ -> [ formula ]
-
-    //TODO: write unit tests
-    //TODO: write a wiki page
-    let CalcFormula formula =
-        match formula with
-        | Conj (Const (X), Const (Y)) -> X && Y
-        | Disj (Const (X), Const (Y)) -> X || Y
-        | Neg (Const (X)) -> not X
-        | Bic (Const (X), Const (Y)) -> X = Y
-        | Impl (Const (X), Const (Y)) ->
-            match (X, Y) with
-            | (true, true) -> true
-            | (true, false) -> false
-            | (false, true) -> true
-            | (false, false) -> true
-        | _ -> failwithf "Unsupported formula %A" formula //TODO: what should be here?
-
-    //TODO: write unit tests
-    let BuildAllFormulasInterpritations formulaCalcList =
-        let vars =
-            formulaCalcList
-            |> List.filter (function
-                | Formula.Var (_) -> true
-                | _ -> false)
-
-        let data = List.init vars.Length (fun _ -> [ true; false ])
-        cartList data
 
     //TODO: write unit tests
     let VerboseTableuxCalculus (formulaCalcList: Formula list) (formulaInterpritations: bool list list) : string =

@@ -1,12 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="BasicAlgorithms.fs" />
-    <Compile Include="Library.fs" />
+    <Compile Include="Formula.fs" />
+    <Compile Include="PropositionalLogic.fs" />
+    <Compile Include="ConsoleOutput.fs" />
   </ItemGroup>
-
 </Project>

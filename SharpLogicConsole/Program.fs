@@ -1,4 +1,6 @@
 ﻿open SharpLogic.Formula
+open SharpLogic.PropositionalLogic
+open SharpLogic.ConsoleOutput
 
 [<EntryPoint>]
 let main argv =
@@ -10,13 +12,14 @@ let main argv =
         |> List.sortBy (fun f -> CalcFormulaDepth f)
 
     List.iter (fun f -> printf "%A\r\n" f) formulaCalcList
-    let isFormulaValid = IsFormulaValid frm
-    printf $"Formula is valid: [{isFormulaValid}]\n"
+    let isFormulaAcceptable = IsFormulaAcceptable frm
+    printf $"Formula is acceptable: [{isFormulaAcceptable}]\n"
     printf "%s\r\n" "================" |> ignore
 
     formulaCalcList
     |> List.map VerboseFormula
     |> List.iter (fun f -> printf "%s\t" f)
+
     //TODO: smartly include it into the expression above
     printf "\r\n"
 
