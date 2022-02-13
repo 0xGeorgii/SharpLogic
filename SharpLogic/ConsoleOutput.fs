@@ -19,6 +19,7 @@ module ConsoleOutput =
         | Impl (n, m) -> $"({VerboseFormula(n)} -> {VerboseFormula(m)})"
 
     //TODO: write unit tests
+    //TODO: use PropositionalLogic.CalcFormulaExpression
     let VerboseTableuxCalculus (formulaCalcList: Formula list) (formulaInterpritations: bool list list) : string =
         let sb = new System.Text.StringBuilder()
         let subFormulasVals = new Dictionary<Formula, bool>()

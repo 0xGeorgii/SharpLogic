@@ -4,16 +4,22 @@ open SharpLogic.ConsoleOutput
 
 [<EntryPoint>]
 let main argv =
-    let frm = Formula.Impl(Conj(Var "P", Var "Q"), Bic(Var "R", Neg(Var "S")))
-    printf "%s\n" (VerboseFormula frm)
+    let formula = Formula.Impl(Conj(Var "P", Var "Q"), Bic(Var "R", Neg(Var "S")))
+    printf "%s\n" (VerboseFormula formula)
 
     let formulaCalcList =
-        BuildFormulaCalcList frm
+        BuildFormulaCalcList formula
         |> List.sortBy (fun f -> CalcFormulaDepth f)
 
     List.iter (fun f -> printf "%A\r\n" f) formulaCalcList
-    let isFormulaAcceptable = IsFormulaAcceptable frm
+    let isFormulaAcceptable = IsFormulaAcceptable formula
     printf $"Formula is acceptable: [{isFormulaAcceptable}]\n"
+    printf "%s\r\n" "================" |> ignore
+    
+    let consistenFormula = Formula.Conj(Impl(Var "P", Var "Q"), Conj(Var "P", Neg(Var "Q")))
+    printf "%s\n" (VerboseFormula consistenFormula)
+    let ifFormulaConsistent = IsFormulaConsistent consistenFormula
+    printf $"Formula is consistent: [{ifFormulaConsistent}]\n"
     printf "%s\r\n" "================" |> ignore
 
     formulaCalcList
@@ -24,7 +30,7 @@ let main argv =
     printf "\r\n"
 
     let formulaInterpritations = BuildAllFormulasInterpritations formulaCalcList
-    let output = VerboseTableuxCalculus formulaCalcList formulaInterpritations
-    printf "%s" output
+    //let output = VerboseTableuxCalculus formulaCalcList formulaInterpritations
+    //printf "%s" output
 
     0 // return an integer exit code
